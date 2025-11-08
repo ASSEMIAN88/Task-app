@@ -1,8 +1,10 @@
 from datetime import datetime
 
+from entities.task_status import TaskStatus
+
 class Task:
     
-    def __init__(self, title:str, description:str, status:str, create_at:datetime,update:datetime):
+    def __init__(self, title:str, description:str, status:TaskStatus, create_at:datetime,update:datetime):
         self.__title = title
         self.__description = description
         self.__status = status
@@ -15,7 +17,7 @@ class Task:
         return Task(
             title=title,
             description=description,
-            status="pending",
+            status= TaskStatus.PENDING,
             create_at=datetime.now(),
             update= None)
     
@@ -26,11 +28,11 @@ class Task:
             self.__description = description
 
     def start(self):
-        self.__status = "starting"
+        self.__status = TaskStatus.STARTING
         
     def finish(self):
-        self.__status = "finishing"
+        self.__status = TaskStatus.FINISHING
     
     def __repr__(self):
-        return f"(title: {self.__title}, description: {self.__description}, status: {self.__status}, create_at: {self.__create_at}, update: {self.__update})"
+        return f"(title: {self.__title}, description: {self.__description}, status: {self.__status.value}, create_at: {self.__create_at}, update: {self.__update})"
     
