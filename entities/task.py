@@ -1,16 +1,17 @@
 from datetime import datetime
+from uuid import uuid4
 
 from entities.task_status import TaskStatus
 
 class Task:
-    
-    def __init__(self, title:str, description:str, status:TaskStatus, create_at:datetime,update:datetime):
+   
+    def __init__(self,id:uuid4, title:str, description:str, status:TaskStatus, create_at:datetime,update:datetime):
         self.__title = title
         self.__description = description
         self.__status = status
         self.__create_at = create_at
         self.__update = update 
-
+        self.__id = id  
 
     @classmethod   
     def create (cls,title:str , description:str):
@@ -19,7 +20,9 @@ class Task:
             description=description,
             status= TaskStatus.PENDING,
             create_at=datetime.now(),
-            update= None)
+            update= None,
+            id=uuid4())
+        
     
     def update(self, title:str = None ,description:str = None):
         if title is not None:
@@ -34,5 +37,5 @@ class Task:
         self.__status = TaskStatus.FINISHING
     
     def __repr__(self):
-        return f"(title: {self.__title}, description: {self.__description}, status: {self.__status.value}, create_at: {self.__create_at}, update: {self.__update})"
+        return f"(id:{self.__id}, title: {self.__title}, description: {self.__description}, status: {self.__status.value}, create_at: {self.__create_at}, update: {self.__update})"
     
